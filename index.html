@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Barricade Location</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+  <script>
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: { lat: 0, lng: 0 }, // Initial center
+      });
+
+      // Fetch data from ThingSpeak
+      setInterval(() => {
+        fetch("https://api.thingspeak.com/channels/YOUR_CHANNEL_ID/feeds/last.json?api_key=YOUR_READ_API_KEY")
+          .then(response => response.json())
+          .then(data => {
+            const lat = parseFloat(data.field1);
+            const lng = parseFloat(data.field2);
+            const marker = new google.maps.Marker({
+              position: { lat, lng },
+              map,
+            });
+            map.setCenter({ lat, lng });
+          });
+      }, 5000); // Update every 5 seconds
+    }
+  </script>
+</head>
+<body onload="initMap()">
+  <div id="map" style="height: 500px; width: 100%;"></div>
+</body>
+</html>
