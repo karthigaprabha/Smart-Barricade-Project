@@ -1,4 +1,4 @@
-# Smart Barricade Project
+new
 
 ## Overview
 This project aims to develop a Smart Barricade with a GPS module and microcontroller to track its location on Google Maps. The collected GPS data is sent to the cloud (ThingSpeak) and visualized on a user interface.
